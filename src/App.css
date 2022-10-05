@@ -1,0 +1,49 @@
+/* .app__container {
+  height: 100vh;
+  background: var(--color-btn);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.centered {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 25%;
+   justify-content: center;
+   background: var(--background);
+   border-radius: 0.5rem;
+}
+
+.app__centered {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}  */
+
+/* MEDIA QUERY FOR TABLET */
+@media screen and (max-width: 1024px) {
+   
+   /* .centered {
+        width: 70%;
+   }
+   .app__centered {
+        display: flex;
+   }  */
+
+   
+}
+
+/* MEDIA QUERY FOR SMALL SCREEN */
+@media screen and (max-width: 600px) {
+   /* .app__container {
+          
+    }
+   .centered {
+        width: 100%;
+   } */
+
+
+   
+}

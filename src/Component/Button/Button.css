@@ -1,0 +1,52 @@
+.btn__display {
+     display: flex;
+     padding: 0rem 2rem;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+}
+button {
+     color: var(--color-white);
+     background: var(--color-btn);
+     font-weight: 700;
+     font-family: var(--font-family);
+     font-size: var(--font-bold);
+     cursor: pointer;
+     border: none;
+     border-radius: 0.5rem;
+     margin: 1rem 0rem;
+     outline: none;
+     width: 100%;
+     padding: 0.8rem;
+}
+.space {
+     margin: 0rem;
+     background: var(--color-white);
+     color: var(--color-font);
+
+}
+.social__icons {
+     display: flex;
+     width: 100%;
+     gap: 0.5rem !important;
+     justify-content: center;
+     margin-top: 0.5rem;
+}
+.social__icons .icons {
+     width: 100%;
+     border-radius: 0.5rem;
+     cursor: pointer;
+     padding: 0.7rem 0rem;
+     background-color: var(--color-white);
+     box-shadow: var(--box-shadow);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: var(--color-black);
+}
+.social__icons .icons a {
+     color: var(--color-black);
+}
+/* .social__icons .icons .blue {
+     color: blue;
+} */

@@ -1,0 +1,146 @@
+.form {
+     width: 100%;
+     background: var(--color-gray);
+     height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+.form__div {
+     width: 30%;
+     border: 0.5px solid var(--color-grey);
+     box-shadow: var(--box-shadow);
+     display: flex;
+     flex-direction: column;
+     padding: 1.5rem 2rem;
+}
+.error {
+     color: var(--color-red);
+     font-size: var(--font-smalls);
+}
+.form__logo {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+form h1 {
+     color: var(--color-font);
+     line-height: 40px;
+     font-weight: 600;
+     font-size: var(--font-bold);
+}
+.inp__div { 
+     display: flex;
+     position: relative;
+     margin: 0.5rem 0rem;
+     flex-direction: column;
+}
+.inp__div label {
+     font-size: var(--font-small);
+     font-weight: 400;
+     line-height: 30px;
+     text-transform: capitalize;
+}
+.inp__div input {
+     width: 100%;
+     box-shadow: var(--box-shadow);
+     padding: 0.7rem 1rem;
+     font-family: var(--font-family);
+     font-size: var(--font-small);
+     border-radius: 0.3rem;
+     border: none;
+     background: var(--color-white);
+     outline: none;
+}
+.vis__icon {
+     position: absolute;
+     right: 0.5rem;
+     top: 2.3rem;
+     object-fit: contain;
+}
+.forgot {
+     display: flex;
+     justify-content: space-between;
+     font-size: var(--font-small);
+     text-transform: capitalize;
+     font-weight: 500;
+}
+.forgot .blue {
+     color: var(--color-btn);
+}
+.forgot .black {
+     color: var(--color-font);
+}
+.vis__icon{
+     color: var(--color-font);
+     opacity: 0.5;
+}
+
+/* FORGET PASSWORD STYLES */
+.form__divs {
+     width: 100%;
+     height: 100vh;
+     display: flex;
+     position: relative;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     background: var(--color-gray);
+}
+.back {
+     position: absolute;
+     cursor: pointer;
+     top: 3rem;
+     left: 3rem;
+}
+.form__forget {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center;
+}
+.inp {
+     display: flex;
+     flex-direction: column;
+     cursor: pointer;
+}
+.label {
+     line-height: 40px;
+     font-size: var(--font-small);
+     color: var(--color-font);
+}
+.inp input {
+     width: 20rem;
+     padding: 0.7rem 1rem;
+     border-radius: 0.2rem;
+     font-size: var(--font-small);
+     font-family: var(--font-family);
+     outline: none;
+     border: none;
+}
+
+/* REGISTER STYLE AND THE REST OF THE STYLE IS TAKING A DEFAULT STYLING FROM THE FORM STYLING */
+.register {
+     display: flex;
+     justify-content: center;
+     font-size: var(--font-bold);
+     font-weight: 600;
+}
+@media screen and (max-width: 1024px) {
+     .form__div {
+          width: 40%;
+     }
+     
+}
+@media screen and (max-width: 600px) {
+     .inp input {
+          width: 15rem;
+     }
+     .form__div {
+          width: 100%;
+          padding: 1rem;
+     }
+     
+
+     
+}
