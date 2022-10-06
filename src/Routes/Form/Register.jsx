@@ -1,73 +1,40 @@
 import React, {useState}from "react";
+import { useForm } from "react-hook-form";
+import { useRef } from "react";
 import {  useNavigate } from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 
 function Register(){
-     const [shown, setShown] = useState(false);
-     const [error, setError] = useState([]);
-     const [input, setInput] = useState({
-          fullName: "",
-          email: "",
-          passWord: "",
-          confirmPassword: ""
-     });
-     // GETTING THE INPUT VALUE
-     function handleChange(event){
-          const {name, value} = event.target
-          setInput(prevInput => {
-               return {
-                    ...prevInput,
-                    [name]: value
-               }
-          })
-     };
-     // SETTING AN ERROR INCASE IF AN EMPTY INPUT IS SUBMITTED
-     function handleRegError(formValue){
-          const errors = {}
-          if(!formValue.fullName){
-               errors.fullName = "Please enter your full name"
-          }
-          if(!formValue.email){
-               errors.email = "Please enter your email address"
-          }
-          if(!formValue.passWord){
-               errors.passWord = "Please enter your password"
-          }
-          if(!formValue.confirmPassWord){
-               errors.confirmPassWord = "Please enter your confirm your password"
-          }
-          setError(errors);
-          return errors;
-     };
-     // SUBMITTING THE FORM
-     const navigate = useNavigate()
-     function handleSubmit(event){
-          event.preventDefault();
-          const validation = handleRegError(input)
-          if(Object.keys(validation).length !== 0) {
-               return;
+      // VALIDATING THE FORM USING REACT HOOK FORM
+      const {register, handleSubmit, watch, formState: {errors}} = useForm();
      
-          }
-          if(error.passWord !== error.confirmPassWord) {
-               return;
-          }
-          navigate('/direct');
-        
+      // VISIBILITY OF PASSWORD
+     const [shown, setShown] = useState(false);
+     function handleVisibility(){
+          setShown(!shown)
      };
+
+     // GETTING THE INPUT VALUE
+
+   
+       // ON SUBMISSION
+       const navigate = useNavigate()
+       const onSubmit = () => {
+           navigate('/direct');
+       };
      // FUNCTION FOR NAVIGATING BACK TO THE SPACE PAGE
      function handleClose(){
           navigate('/form')
      };
-     // VISIBILITY OF PASSWORD
-     function handleVisibility(){
-          setShown(!shown)
-     };
+     const passWord = useRef({});
+     passWord.current = watch("passWord", "");
+
      return(
           <div className="space__div">
                 <small onClick={handleClose}>back</small>
-                <form className="form__space" onSubmit={handleSubmit}>
+                <form className="form__space" onSubmit={handleSubmit(onSubmit)}>
                      <div className="register">Register</div>
                      <div className="inp__div">
                                <label htmlFor="fullName" className="email__label">full name</label>
@@ -76,26 +43,29 @@ function Register(){
                                      placeholder="full name"
                                      type="text"
                                      name="fullName"
-                                     value={input.fullName} 
-                                     onChange={handleChange}
+                                     {...register("fullName", {required: "please enter your full name", maxLength:{value: 15, message: "your full name should not exceed 15 character"}})} 
+
                               />
-                            
                                                        
                     </div>
-                     <p className="error">{error.fullName}</p>
+                    {errors.fullName && <p className="error">{errors.fullName.message}</p> }
                     <div className="inp__div">
                                <label htmlFor="email" className="email__label">email</label>
 
                                <input 
                                      placeholder="email"
-                                     type="text"
+                                     type="email"
                                      name="email"
-                                     value={input.email} 
-                                     onChange={handleChange}
+                                     {...register("email", {required: "please enter your email address",
+                                       pattern: {
+                                              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                              message: 'Please enter a valid email',
+                                    } ,
+                                   
+                                   })}
                               />                     
                     </div>
-                    <p className="error">{error.email}</p>
-                    
+                    {errors.email && <p className="error">{errors.email.message}</p> }
                    <div className="inp__div">
                                <label htmlFor="passWord" className="email__label">password</label>
                                {shown ? <VisibilityIcon className="vis__icon" onClick={handleVisibility}/>: <VisibilityOffIcon className="vis__icon" onClick={handleVisibility}/>}
@@ -103,15 +73,15 @@ function Register(){
                                      placeholder="password"
                                      type= {shown ? "text" : "password"}
                                      name="passWord"
-                                     value={input.passWord} 
-                                     onChange={handleChange}
+                                     {...register("passWord", {required: "please enter your password", maxLength:{value: 6, message: "your password should be 6 character"}
+                                      
+                                   })} 
                                    
                               />
 
                             
                     </div>
-
-                    <p className="error">{error.passWord}</p>
+                    {errors.passWord && <p className="error">{errors.passWord?.message}</p> }
                     <div className="inp__div">
                            <label htmlFor="passWord" className="email__label">confirm password</label>
                            {shown ? <VisibilityIcon className="vis__icon" onClick={handleVisibility}/>: <VisibilityOffIcon className="vis__icon" onClick={handleVisibility}/>}
@@ -120,13 +90,16 @@ function Register(){
                                placeholder="confirm password"
                                type= {shown ? "text" : "password"}
                                name="confirmPassWord"
-                               value={input.confirmPassWord} 
-                               onChange={handleChange}
-                        
+                               {...register("confirmPassWord", {required: "please confirm your password", maxLength:{value: 6, message: "invalid password"},
+                               validate: value =>
+                               value === passWord.current || "The passwords do not match"
+                            
+                              })} 
+                             
                          />
                  
                       </div>
-                      <p className="error">{error.confirmPassWord}</p>
+                      {errors.confirmPassWord && <p className="error">{errors.confirmPassWord?.message}</p> }
                       <button type="submit">Sign Up</button>
                 
                 </form>

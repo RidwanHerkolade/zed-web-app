@@ -8,7 +8,7 @@
 }
 .form__div {
      width: 30%;
-     border: 0.5px solid var(--color-grey);
+     /* border: 0.5px solid var(--color-grey); */
      box-shadow: var(--box-shadow);
      display: flex;
      flex-direction: column;
@@ -17,6 +17,7 @@
 .error {
      color: var(--color-red);
      font-size: var(--font-smalls);
+     text-transform: capitalize;
 }
 .form__logo {
      display: flex;

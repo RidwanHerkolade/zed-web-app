@@ -10,7 +10,7 @@
 }
 .form__space {
      width: 30%;
-     border: 0.5px solid var(--color-grey);
+     /* border: 0.5px solid var(--color-grey); */
      padding: 1.5rem 2rem;
 }
 small {

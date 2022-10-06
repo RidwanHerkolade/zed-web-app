@@ -1,49 +1,23 @@
 import React, {useState} from "react";
+import {useForm} from "react-hook-form"
 import {Link, useNavigate} from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+// <p className="error">{error.passWord}</p>
+// <p className="error">{error.email}</p>
 import './Form.css'
 function Form(){
-     //  GETTING THE INPUT VALUE
-     const [shown, setShown] = useState(false)
-     const [error, setError] = useState([])
-     const [input, setInput] = useState({
-          email: "",
-          passWord: ""
-     });
-     function handleChange(event){
-          const {name, value} = event.target
-          setInput(prevInput => {
-               return{
-                    ...prevInput,
-                    [name]: value
-                    
-               }
-          })
-     };
-     // SETTING AN ALERT INCASE IF AN EMPTY VALUE IS SENT
-     function handleError(formValue) {
-          const errors = {}
-          if(!formValue.email) {
-               errors.email = "Please enter your email address"
-          }
-          if(!formValue.passWord) {
-               errors.passWord = "Please enter your password"
-          }
-          setError(errors)
-          return errors;
-     };
+     // VALIDATING THE FORM USING REACT HOOK FORM
+     const {register, handleSubmit, formState: {errors}} = useForm();
+     
      // ON SUBMISSION
-     const navigate = useNavigate()
-     function handleSubmit(event){
-          event.preventDefault();
-          const validation = handleError(input);
-          if (Object.keys(validation).length !== 0){
-               return;
-          }
+      const navigate = useNavigate()
+      const onSubmit = () => {
           navigate('/detail')
+      }
 
-     };
+     //  SETTING THE VISIBILITY OF THE PASSWORD
+     const [shown, setShown] = useState(false);
      function handleVisibility(){
           setShown(!shown)
      }
@@ -55,39 +29,40 @@ function Form(){
                           <header>O<span>2</span></header>
                    
                     </div>
-                     <form onSubmit={handleSubmit}>
+                     <form onSubmit={handleSubmit(onSubmit)}>
                           <h1>sign in</h1>
                           <div className="inp__div">
                                <label htmlFor="email" className="email__label">email</label>
 
                                <input 
                                      placeholder="email"
-                                     type="text"
+                                     type="email"
                                      name="email"
-                                     value={input.email} 
-                                     onChange={handleChange}
+                                     {...register("email", {required: "please enter your email address",
+                                       pattern: {
+                                              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                             message: 'Please enter a valid email',
+                                    } ,
+                                   
+                                   })}
                                      
-
                               />
-                            
-                              <p className="error">{error.email}</p>
-                          
                           </div>
+                          {errors.email && <p className="error">{errors.email?.message}</p>}
                           <div className="inp__div">
                                <label htmlFor="password" className="password__label">password</label>
                               <input 
                                     placeholder="password" 
                                     type= {shown ? "text" : "password"}
                                     name="passWord"
-                                    value={input.passWord}
-                                    onChange={handleChange}
-
-                                    
+                                    {...register("passWord", {required: "please enter your password", maxLength:{value: 6, message: "your password should be 6 character"}})} 
+                                  
                                />
                                {shown ? <VisibilityIcon className="vis__icon" onClick={handleVisibility}/>: <VisibilityOffIcon className="vis__icon" onClick={handleVisibility}/>}
-                               <p className="error">{error.passWord}</p>
+                              
                           
                           </div>
+                          {errors.passWord && <p className="error">{errors.passWord.message}</p>}
                           <button type="submit">Sign In</button>
                           <div className="forgot">
                                <Link className="black" to="/forget">forgot password</Link>

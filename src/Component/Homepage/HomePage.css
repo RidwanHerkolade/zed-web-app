@@ -60,9 +60,9 @@ h1 {
           width: 40%; 
           padding: 2rem 0rem;
      }
-     footer {
+     /* footer {
           display: none;
-     }
+     } */
 }
 @media screen and (max-width: 600px) {
      .homepage__div {
